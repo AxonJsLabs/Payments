@@ -46,7 +46,6 @@ Each gateway is designed to be self-contained and follow a consistent interface.
 ## 🧠 Philosophy
 
 - ✅ ESM-first — optimized for modern tooling
-- 🔒 No 3rd-party SDKs — direct HTTP integration via axios
 - ⚙️ Shared interfaces, custom configs, and low-level control
 - 🧪 Testable clients for real-world server environments
 - 🌍 Multi-gateway ready in a single unified package
