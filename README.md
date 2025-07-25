@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AxonJsLabs/brand/main/logo-light.svg" height="100" alt="AxonJs Logo" />
+  <img src="https://avatars.githubusercontent.com/u/198393404?s=200&v=4" height="100" alt="AxonJs Logo" />
 </p>
 
 <h1 align="center">@axonlabs/payment</h1>
