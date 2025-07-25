@@ -1,0 +1,38 @@
+{
+    "createInvoice": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/invoices/new"
+    },
+    "withDrawal": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/operations/withdraw"
+    },
+    "transactions": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/operations"
+    },
+    "transctionDetails": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/operations/<id>"
+    },
+    "balances": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/balances/<psys_cid>"
+    },
+    "feePlans": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/operations/fee-plan/<psys_cid>"
+    },
+    "feeEstimation": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/operations/fee/<psys_cid>"
+    },
+    "plisioFee": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/operations/commission/<psys_cid>"
+    },
+    "cryptoCoins": {
+        "method": "GET",
+        "url": "https://api.plisio.net/api/v1/currencies"
+    }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "@axonlabs/payments",
+  "version": "0.0.0",
+  "description": "💳 Modular, type-safe payment gateway clients for Node.js apps — including Plisio and more soon. Built with TypeScript and fully ESM-compatible.",
+  "keywords": [
+    "Plisio",
+    "AxonJs"
+  ],
+  "homepage": "https://github.com/AxonJsLabs/Payments#readme",
+  "bugs": {
+    "url": "https://github.com/AxonJsLabs/Payments/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AxonJsLabs/Payments.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Mr.MKZ",
+    "url": "https://github.com/Mr-MKZ"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./plisio": {
+      "types": "./dist/plisio/index.d.ts",
+      "import": "./dist/plisio/index.mjs",
+      "require": "./dist/plisio/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "build:clean": "rm -rf dist && tsup",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "doc": "typedoc",
+    "changeset": "npx changeset",
+    "version": "npx changeset version",
+    "publish": ""
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.5",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.15",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
+    "typedoc": "^0.28.7",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "axios": "^1.10.0"
+  }
+}
