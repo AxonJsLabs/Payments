@@ -209,6 +209,26 @@ export const invoiceStatus = [
     "cancelled"
 ] as const;
 
+export interface IPlisioResponseError {
+    status: "error",
+    data: {
+        /**
+         * Error name
+         */
+        name: string;
+
+        /**
+         * Error explanation
+         */
+        message: string;
+
+        /**
+         * Error code
+         */
+        code: number;
+    }
+}
+
 /**
  * List of supported crypto currencies by Plisio
  */
@@ -230,6 +250,10 @@ export type FiatCurrencies = typeof fiatCurrencies[number];
  * - **cancelled** - no payment received within 10 hours
  */
 export type InvoiceStatus = typeof invoiceStatus[number];
+
+/**
+ * Create Invoice ================================================================================================
+ */
 
 /**
  * List of all supported request fields for creating new invoice in Plisio.
@@ -354,7 +378,14 @@ export interface CreateInvoiceRequestFields {
 export interface ICreateInvoiceSuccess {
     status: "success",
     data: {
+        /**
+         * Plisio’s intertnal ID
+         */
         txn_id: string;
+
+        /**
+         * Invoice URL
+         */
         invoice_url: string;
     }
 }
@@ -362,65 +393,248 @@ export interface ICreateInvoiceSuccess {
 export interface ICreateInvoiceSuccessWhiteLabel {
     status: "success",
     data: {
+        /**
+         * Plisio’s intertnal ID
+         */
         txn_id: string,
+
+        /**
+         * Invoice URL
+         */
         invoice_url: string;
-        amount: number;
-        pending_amount: number;
+
+        /**
+         * Invoice amount in the selected cryptocurrency
+         */
+        amount: string;
+
+        /**
+         * 	The remaining amount to be paid in the selected cryptocurrency
+         */
+        pending_amount: string;
+
+        /**
+         * Invoice hash
+         */
         wallet_hash: string;
+
+        /**
+         * Cryptocurrencies ID ([supported cryptocurrencies](https://plisio.net/documentation/appendices/supported-cryptocurrencies))
+         */
         psys_cid: CryptoCurrencies;
+
+        /**
+         * Cryptocurrencies code ([supported cryptocurrencies](https://plisio.net/documentation/appendices/supported-cryptocurrencies))
+         */
         currency: CryptoCurrencies;
+
+        /**
+         * Status of invoice
+         */
         status: InvoiceStatus;
+
+        /**
+         * Fiat currency
+         */
         source_currency: FiatCurrencies;
-        source_rate: number;
+
+        /**
+         * Exchange rate from the “psys_cid” to the “source_currency” at the moment of transfer
+         */
+        source_rate: string;
+
+        /**
+         * Timestamp in the UTC timezone; it may need to be divided by 1000
+         */
         expire_utc: number;
-        expected_confirmations: number;
+
+        /**
+         * How many confirmations expected to mark invoice completed
+         */
+        expected_confirmations: string;
+
+        /**
+         * QR code image in base64 format
+         */
         qr_code: string;
+
+        /**
+         * Hash to verify the “POST” data signed with your SHOP_API_KEY
+         */
         verify_hash: string;
-        invoice_commission: number;
-        invoice_sum: number;
-        invoice_total_sum: number;
-    }
-}
-
-export interface ICreateInvoiceError {
-    status: "error",
-    data: {
-        /**
-         * Error name
-         */
-        name: string;
 
         /**
-         * Error explanation
+         * 	Plisio commission
          */
-        message: string;
+        invoice_commission: string;
 
         /**
-         * Error code
+         * Shop pays commission: invoice amount - invoice_commission
+         * 
+         * client pays commission: invoice amount
          */
-        code: number;
+        invoice_sum: string;
+
+        /**
+         * shop pays commission: invoice amount
+         * 
+         * client pays commission: invoice_commission + invoice_sum
+         */
+        invoice_total_sum: string;
     }
 }
 
 export interface ICreateInvoiceCallback {
-    txn_id: number;
+    txn_id: string;
     ipn_type: string;
     merchant: string;
-    merchant_id: number;
-    amount: number;
+    merchant_id: string;
+    amount: string;
     currency: CryptoCurrencies;
-    order_number: number;
+    order_number: string;
     order_name: string;
-    confirmations: number;
+    confirmations: string;
     status: InvoiceStatus;
     source_currency: FiatCurrencies;
-    source_amount: number;
-    source_rate: number;
+    source_amount: string;
+    source_rate: string;
     comment: string;
     verify_hash: string;
     invoice_commission: string;
-    invoice_sum: number;
-    invoice_total_sum: number;
+    invoice_sum: string;
+    invoice_total_sum: string;
+}
+
+/**
+ * Withdraw ======================================================================================================
+ */
+
+/**
+ * Plisio withdraw type
+ */
+export type WithdrawType = "cash_out" | "mass_cash_out";
+
+/**
+ * Plisio withdraw fee plan
+ */
+export type FeePlan = "normal" | "priority";
+
+/**
+ * List of all supported request fields for withdraw cash in Plisio.
+ */
+export interface WithdrawRequestFields {
+    /**
+     * One of the cryptocurrencies supported by Plisio (ID column from supported [cryptocurrencies](https://plisio.net/documentation/appendices/supported-cryptocurrencies))
+     */
+    currency: CryptoCurrencies;
+
+    /**
+     * “cash_out” or “mass_cash_out” to send to single or multiple hashes
+     */
+    type: WithdrawType;
+
+    /**
+     * Hash or multiple hashes pooled for the “mass_cash_out”
+     */
+    to: string[];
+
+    /**
+     * Any float values for the “ mass_cash_out” in the order that hashes are in “to” parameter
+     */
+    amount: number[];
+
+    /**
+     * a name of the one of: normal or priority ([more info](https://plisio.net/documentation/endpoints/fee-plans))
+     */
+    feePlan: FeePlan;
+}
+
+export interface IWithdrawSuccess {
+    status: "success";
+    data: {
+        /**
+         * 	“cash_out” or “mass_cash_out” depending on the request
+         */
+        type: WithdrawType;
+
+        /**
+         * Specifies whether the operation was completed or not (completed, error)
+         */
+        status: "completed" | "error";
+
+        /**
+         * ID column from [supported cryptocurrencies](https://plisio.net/documentation/appendices/supported-cryptocurrencies)
+         */
+        psys_cid: CryptoCurrencies;
+
+        /**
+         * Code column from [supported cryptocurrencies](https://plisio.net/documentation/appendices/supported-cryptocurrencies)
+         */
+        currency: CryptoCurrencies;
+
+        /**
+         * Name of the fiat currency (only USD available)
+         */
+        source_currency: FiatCurrencies;
+
+        /**
+         * Exchange rate from the “psys_cid” to the “source_currency” at the moment of transfer
+         */
+        source_rate: string;
+
+        /**
+         * Transaction fee stated in the transfer
+         */
+        fee: string;
+
+        /**
+         * Destination hash (if type=cash_out)
+         */
+        wallet_hash?: string;
+
+        /**
+         * Pairs of hashes and values (if type=mass_cash_out)
+         */
+        sendmany?: { [key: string]: number };
+        params: {
+            fee: {
+                /**
+                 * Estimated fee parameter to confirm the transaction in the “conf_target” blocks
+                 */
+                conf_target: number;
+
+                /**
+                 * The Plisio’s fee plan name
+                 */
+                plan: FeePlan;
+
+                /**
+                 * fee value
+                 */
+                value: string
+            }
+        };
+
+        /**
+         * Timestamp in the UTC timezone; it may need to be divided by 1000
+         */
+        created_at_utc: number;
+
+        /**
+         * Transfer amount in cryptocurrency
+         */
+        amount: string;
+
+        /**
+         * Link to the cryptocurrency block explorer
+         */
+        tx_url: string;
+
+        /**
+         * Internal Plisio operation ID
+         */
+        id: string
+    }
 }
 
 // TODO: Docs of response interfaces. https://plisio.net/documentation/endpoints/create-an-invoice
