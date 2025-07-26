@@ -39,8 +39,7 @@
     "test:watch": "jest --watch",
     "doc": "typedoc",
     "changeset": "npx changeset",
-    "version": "npx changeset version",
-    "publish": ""
+    "version": "npx changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
