@@ -637,5 +637,4 @@ export interface IWithdrawSuccess {
     }
 }
 
-// TODO: Docs of response interfaces. https://plisio.net/documentation/endpoints/create-an-invoice
 // TODO: Other endpoint interfaces and types.
