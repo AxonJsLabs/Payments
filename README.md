@@ -2,7 +2,7 @@
   <img src="https://avatars.githubusercontent.com/u/198393404?s=200&v=4" height="100" alt="AxonJs Logo" />
 </p>
 
-<h1 align="center">@axonlabs/payment</h1>
+<h1 align="center">@axonlabs/paymentss</h1>
 
 <p align="center">
   💳 Modular, type-safe payment gateway clients for Node.js — with first-class TypeScript, ESM exports, and real-world API support.
@@ -12,7 +12,7 @@
 
 ## 🚀 What is this?
 
-`@axonlabs/payment` is a unified payment client library for Node.js applications — built with **TypeScript**, **ESM**, and **modern developer ergonomics** in mind.
+`@axonlabs/payments` is a unified payment client library for Node.js applications — built with **TypeScript**, **ESM**, and **modern developer ergonomics** in mind.
 
 Whether you're integrating **Plisio**, **Zarinpal** (more payment clients will coming soon) this package gives you:
 
@@ -30,8 +30,8 @@ Whether you're integrating **Plisio**, **Zarinpal** (more payment clients will c
 
 | Gateway        | Import Path                          | Status      |
 |----------------|--------------------------------------|-------------|
-| Plisio         | `@axonlabs/payment/plisio`           | 🧪 In progress |
-| Zarinpal       | `@axonlabs/payment/zarinpal`         | 🚧 In Future |
+| Plisio         | `@axonlabs/payments/plisio`           | 🧪 In progress |
+| Zarinpal       | `@axonlabs/payments/zarinpal`         | 🚧 In Future |
 
 > Want to contribute a gateway? PRs are welcome!
 
@@ -58,12 +58,12 @@ Each gateway is designed to be self-contained and follow a consistent interface.
 
 ```ts
 // Plisio
-import { PlisioClient } from '@axonlabs/payment/plisio';
+import { PlisioClient } from '@axonlabs/payments/plisio';
 
 const plisio = new PlisioClient(secret_key, "whitelabel");
 
 // Central hub
-import { Payments, AxonPayments } from '@axonlabs/payment';
+import { Payments, AxonPayments } from '@axonlabs/payments';
 
 const plisio1 = Payments.getPlisio(secret_key, "whitelabel");
 const plisio2 = new AxonPayments().getPlisio(secret_key, "whitelabel");

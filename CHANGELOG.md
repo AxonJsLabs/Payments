@@ -1,5 +1,11 @@
 # @axonlabs/payments
 
+## 0.1.3
+
+### Patch Changes
+
+- fix package file list after launching package to npm.
+
 ## 0.1.2
 
 ### Patch Changes
