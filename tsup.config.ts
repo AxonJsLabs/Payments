@@ -3,7 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
     entry: [
         "lib/index.ts",
-        "lib/plisio/index.ts"
+        "lib/Plisio/index.ts"
     ],
     format: ["cjs", "esm"],
     dts: true,

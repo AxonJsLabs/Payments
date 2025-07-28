@@ -1,5 +1,11 @@
 # @axonlabs/payments
 
+## 0.1.1
+
+### Patch Changes
+
+- fix tsup config for new name of Plisio module.
+
 ## 0.1.0
 
 ### Minor Changes

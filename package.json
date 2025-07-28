@@ -1,6 +1,6 @@
 {
   "name": "@axonlabs/payments",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "💳 Modular, type-safe payment gateway clients for Node.js apps — including Plisio and more soon. Built with TypeScript and fully ESM-compatible.",
   "keywords": [
     "Plisio",
@@ -27,9 +27,9 @@
       "require": "./dist/index.js"
     },
     "./plisio": {
-      "types": "./dist/plisio/index.d.ts",
-      "import": "./dist/plisio/index.mjs",
-      "require": "./dist/plisio/index.js"
+      "types": "./dist/Plisio/index.d.ts",
+      "import": "./dist/Plisio/index.mjs",
+      "require": "./dist/Plisio/index.js"
     }
   },
   "scripts": {
