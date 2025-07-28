@@ -209,6 +209,8 @@ export const invoiceStatus = [
     "cancelled"
 ] as const;
 
+export type PlisioMode = "whitelabel" | "default";
+
 export interface IPlisioResponseError {
     status: "error",
     data: {
@@ -387,6 +389,13 @@ export interface ICreateInvoiceSuccess {
          * Invoice URL
          */
         invoice_url: string;
+
+        /**
+         * shop pays commission: invoice amount
+         * 
+         * client pays commission: invoice_commission + invoice_sum
+         */
+        invoice_total_sum: string;
     }
 }
 

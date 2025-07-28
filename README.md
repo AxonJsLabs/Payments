@@ -22,6 +22,8 @@ Whether you're integrating **Plisio**, **Zarinpal** (more payment clients will c
 - ⚡️ Fully tree-shakable via ESM exports
 - 📦 Single package, clean structure
 
+**[Project Changelog](./CHANGELOG.md)**
+
 ---
 
 ## 📦 Supported Gateways
@@ -29,7 +31,7 @@ Whether you're integrating **Plisio**, **Zarinpal** (more payment clients will c
 | Gateway        | Import Path                          | Status      |
 |----------------|--------------------------------------|-------------|
 | Plisio         | `@axonlabs/payment/plisio`           | 🧪 In progress |
-| Zarinpal       | `@axonlabs/payment/zarinpal`         | 🧪 In progress |
+| Zarinpal       | `@axonlabs/payment/zarinpal`         | 🚧 In Future |
 
 > Want to contribute a gateway? PRs are welcome!
 
@@ -52,17 +54,19 @@ Each gateway is designed to be self-contained and follow a consistent interface.
 
 ---
 
-## 📂 Import Structure (expectations)
+## 📂 Import Structure
 
 ```ts
 // Plisio
-import { PlisioClient } from '@axonlabs/payment/plisio'
+import { PlisioClient } from '@axonlabs/payment/plisio';
 
-// Zarinpal
-import { ZarinpalClient } from '@axonlabs/payment/zarinpal'
+const plisio = new PlisioClient(secret_key, "whitelabel");
 
-// Core types
-import type { PaymentGateway } from '@axonlabs/payment'
+// Central hub
+import { Payments, AxonPayments } from '@axonlabs/payment';
+
+const plisio1 = Payments.getPlisio(secret_key, "whitelabel");
+const plisio2 = new AxonPayments().getPlisio(secret_key, "whitelabel");
 ```
 
 ---

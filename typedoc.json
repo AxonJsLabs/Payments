@@ -1,0 +1,14 @@
+{
+    "entryPoints": [
+        "lib",
+        "lib/Plisio"
+    ],
+    "exclude": [],
+    "out": "docs",
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "includeVersion": true,
+    "githubPages": true,
+    "readme": "README.md", // or "README.md" if you have one
+    "tsconfig": "tsconfig.json"
+}
