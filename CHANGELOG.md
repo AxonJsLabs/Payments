@@ -1,5 +1,11 @@
 # @axonlabs/payments
 
+## 0.1.4
+
+### Patch Changes
+
+- fix: Export path for commonjs and module changed to fix module not found error.
+
 ## 0.1.3
 
 ### Patch Changes
