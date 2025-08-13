@@ -1,5 +1,11 @@
 # @axonlabs/payments
 
+## 0.2.0
+
+### Minor Changes
+
+- withdraw method for Plisio client for withdrawal process
+
 ## 0.1.4
 
 ### Patch Changes

@@ -2,7 +2,7 @@
   <img src="https://avatars.githubusercontent.com/u/198393404?s=200&v=4" height="100" alt="AxonJs Logo" />
 </p>
 
-<h1 align="center">@axonlabs/paymentss</h1>
+<h1 align="center">@axonlabs/payments</h1>
 
 <p align="center">
   💳 Modular, type-safe payment gateway clients for Node.js — with first-class TypeScript, ESM exports, and real-world API support.
@@ -39,7 +39,18 @@ Whether you're integrating **Plisio**, **Zarinpal** (more payment clients will c
 
 ## 🧪 Example Usage
 
-**Coming soon...**
+```ts
+// Plisio
+import { PlisioClient } from '@axonlabs/payments/plisio';
+
+const plisio = new PlisioClient(secret_key, "whitelabel");
+
+// Central hub
+import { Payments, AxonPayments } from '@axonlabs/payments';
+
+const plisio1 = Payments.getPlisio(secret_key, "whitelabel");
+const plisio2 = new AxonPayments().getPlisio(secret_key, "whitelabel");
+```
 
 Each gateway is designed to be self-contained and follow a consistent interface.
 
@@ -59,14 +70,8 @@ Each gateway is designed to be self-contained and follow a consistent interface.
 ```ts
 // Plisio
 import { PlisioClient } from '@axonlabs/payments/plisio';
-
-const plisio = new PlisioClient(secret_key, "whitelabel");
-
 // Central hub
 import { Payments, AxonPayments } from '@axonlabs/payments';
-
-const plisio1 = Payments.getPlisio(secret_key, "whitelabel");
-const plisio2 = new AxonPayments().getPlisio(secret_key, "whitelabel");
 ```
 
 ---
@@ -88,6 +93,6 @@ npm run build
 npm run test
 ```
 
-> Want to add your own gateway (e.g. NowPayments, IDPay)? Check the src/ folder and follow the structure.
+> Want to add your own gateway (e.g. NowPayments, IDPay, PayPal)? Check the lib/ folder and follow the structure.
 
 <p align="center" style="font-size: 20px"> <sub>Built with 💜 by the <a href="https://github.com/AxonJsLabs">AxonJsLabs</a> community</sub> </p>
