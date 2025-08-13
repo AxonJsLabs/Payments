@@ -9,7 +9,9 @@ import type {
     ICreateInvoiceSuccess,
     ICreateInvoiceSuccessWhiteLabel,
     IPlisioResponseError,
-    PlisioMode
+    IWithdrawSuccess,
+    PlisioMode,
+    WithdrawRequestFields
 } from "@/Plisio/types";
 
 /**
@@ -64,15 +66,48 @@ class PlisioClient<T extends PlisioMode = "default"> {
      * @throws AxiosError if the API call fails, with additional context if available.
      */
     public async createInvoice(options: CreateInvoiceRequestFields) {
+        // Converts the options object into a URL query string.
         const params = this.parseQueryParams(options);
         const url = `${endpoints.createInvoice.url}?${params}`;
 
+        const response = await this.request<
+            T extends "whitelabel" ? ICreateInvoiceSuccessWhiteLabel : ICreateInvoiceSuccess
+        >(url);
+
+        // Return the data from the response payload.
+        return response.data;
+    }
+
+    /**
+     * Sends a request to Plisio to initiate a new withdrawal.
+     * 
+     * @param options - Fields required for the withdrawal, conforming to the `WithdrawRequestFields` type.
+     * @returns A promise resolving to the `data` object from the successful withdrawal response.
+     * 
+     * @throws AxiosError if the API call fails, with additional context if available.
+     */
+    public async withdraw(options: WithdrawRequestFields) {
+        // Converts the options object into a URL query string.
+        const params = this.parseQueryParams(options);
+        const url = `${endpoints.withDrawal.url}?${params}`;
+
+        const response = await this.request<IWithdrawSuccess>(url);
+
+        // Return the data from the response payload.
+        return response.data;
+    }
+
+    /**
+     * A simple request method to send `GET` request to the following url and return the response or throws error of the request.
+     * 
+     * @param url Url which request must send to it.
+     * @returns A promise resolving the data of successful request response.
+     */
+    private async request<AxiosSuccessResponse>(url: string) {
         let response;
 
         try {
-            response = await axios.get<
-                T extends "whitelabel" ? ICreateInvoiceSuccessWhiteLabel : ICreateInvoiceSuccess
-            >(url);
+            response = await axios.get<AxiosSuccessResponse>(url);
         } catch (error) {
             if (axios.isAxiosError<IPlisioResponseError>(error)) {
                 console.error("Axios error:", error.response?.data.data.message ?? error.message);
@@ -83,7 +118,7 @@ class PlisioClient<T extends PlisioMode = "default"> {
             }
         }
 
-        return response.data;
+        return response;
     }
 
     /**
